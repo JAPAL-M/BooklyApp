@@ -16,7 +16,7 @@ class FeaturesBooksListView extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => const CustomListViewItem(),
           separatorBuilder: (context, index) => const SizedBox(
-            width: 20,
+            width: 15,
           ),
           itemCount: 10),
     );
