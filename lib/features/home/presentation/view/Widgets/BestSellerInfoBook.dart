@@ -1,3 +1,4 @@
+import 'package:bookly_app/features/home/data/models/BookModel/book_model.dart';
 import 'package:flutter/material.dart';
 
 
@@ -6,40 +7,42 @@ import 'BookRaiting.dart';
 
 class BestSellerInfoBook extends StatelessWidget {
   const BestSellerInfoBook({
-    super.key,
+    super.key, required this.bookModel,
   });
-
+final BookModel bookModel;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * .6,
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
            Text(
-            'Harry Potter and the Goblet of Fire',
+            bookModel.volumeInfo!.title.toString(),
             style: Styles.textStyle20,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-           SizedBox(
+          const SizedBox(
             height: 2,
           ),
            Text(
-            'J.K. Rowling',
+             bookModel.volumeInfo!.authors!.first.toString(),
             style: Styles.textStyle14,
           ),
-           SizedBox(
+         const  SizedBox(
             height: 2,
           ),
           Row(
             children: [
                Text(
-                '19.99 €',
+                 bookModel.saleInfo!.saleability.toString() == 'NOT_FOR_SALE' ? 'Free' :  bookModel.saleInfo!.saleability.toString(),
                 style: Styles.textStyle20b,
+                 maxLines: 2,
+                 overflow: TextOverflow.ellipsis,
               ),
-               Spacer(),
-              BookRaiting()
+              const Spacer(),
+             const BookRaiting()
             ],
           )
         ],
