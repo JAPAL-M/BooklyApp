@@ -4,6 +4,8 @@ import 'package:bookly_app/core/utils/services_loceator.dart';
 import 'package:bookly_app/features/home/data/repo/home_repo_impl.dart';
 import 'package:bookly_app/features/home/presentation/viewModel/Feature_Books_Cubit/feature_books_cubit.dart';
 import 'package:bookly_app/features/home/presentation/viewModel/Newest_Books_Cubit/newest_books_cubit.dart';
+import 'package:bookly_app/features/search/data/repo/search_repo_impl.dart';
+import 'package:bookly_app/features/search/presentation/viewmodel/search_cubit.dart';
 import 'package:bookly_app/features/splash/presentation/view/splash_view.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  setupServicesLocator();
   runApp(const MyApp());
 }
 
@@ -22,8 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (create) => FeatureBooksCubit(HomeRepoImpl(ApiServices(Dio())))..fetchFeatureBooks()),
-        BlocProvider(create: (create) => NewestBooksCubit(HomeRepoImpl(ApiServices(Dio())))..fetchNewestBooks()),
+        BlocProvider(create: (create) => FeatureBooksCubit(getIt.get<HomeRepoImpl>())..fetchFeatureBooks()),
+        BlocProvider(create: (create) => NewestBooksCubit(getIt.get<HomeRepoImpl>())..fetchNewestBooks()),
+        BlocProvider(create: (create) => SearchCubit(getIt.get<SearchRepoImpl>())),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

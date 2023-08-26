@@ -11,25 +11,32 @@ class SearchRepoImpl implements SearchRepo{
 
   SearchRepoImpl(this.apiServices);
   @override
-  Future<Either<Failure, List<BookModel>>> fetchSearchBooks({String? search}) async{
+  Future<Either<Failure, List<BookModel>>> fetchSearchBooks({required String? search}) async {
     try {
-      var result = await apiServices.get(
-          endpoint: 'volumes?Filtering=free-ebooks&q=$search');
+      var data = await apiServices.get(
+          endpoint:
+          'volumes?Filtering=free-ebooks&Sorting=newest &q=$search');
       List<BookModel> books = [];
-      for(var item in result['items']){
-        try{
-          books.addAll(item);
-        }catch(e){
-          books.addAll(item);
+      for (var item in data['items']) {
+        try {
+          books.add(BookModel.fromJson(item));
+        } catch (e) {
+          books.add(BookModel.fromJson(item));
         }
       }
 
       return right(books);
-    }catch(e){
-      if(e is DioException){
-        return left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      if (e is DioException) {
+        return left(
+          ServerFailure.fromDioError(e),
+        );
       }
-      return left(ServerFailure(e.toString()));
+      return left(
+        ServerFailure(
+          e.toString(),
+        ),
+      );
     }
   }
 
