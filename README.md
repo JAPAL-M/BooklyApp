@@ -1,5 +1,6 @@
 # bookly_app
 
-Bookly App is displayed books of programming and search any book.
-
-I,m Using MVVM With Clean Architecture and Apply Clean Code in this project.
+Bookly app is books app with api display feature books from google api books , I use in this project:
+Architecture: Clean architecture with mvvm , State Management: Bloc ,  Clean Code , Animation,
+Dio, Responsive Ui.
+Features: Splash Screen , Home Feature , Feature Books , Newest Books , Details Books , Preview Books , Search Books.
